@@ -5,32 +5,55 @@
 const Workout = require("../database/workoutDatabase");
 const { v4: uuid } = require("uuid");
 
-const getAllWorkoutsService = () => {
-  const allWorkouts = Workout.getAllWorkoutsDB();
-  return allWorkouts;
+const getAllWorkoutsService = (filterParams) => {
+  try {
+    const allWorkouts = Workout.getAllWorkoutsDB(filterParams);
+    return allWorkouts;
+  } catch (error) {
+    throw error;
+  }
 };
 
-const postWorkoutService = () => {
+const postWorkoutService = (newWorkout) => {
   const workoutToInsert = {
     ...newWorkout,
     id: uuid(),
     createdAt: new Date().toLocaleString("en-US", { timeZone: "UTC" }),
     updatedAt: new Date().toLocaleString("en-US", { timeZone: "UTC" }),
   };
-  const createdWorkout = Workout.postWorkoutDB(workoutToInsert);
-  return createdWorkout;
+
+  try {
+    const createdWorkout = Workout.postWorkoutDB(workoutToInsert);
+    return createdWorkout;
+  } catch (error) {
+    throw error;
+  }
 };
 
-const getOneWorkoutService = () => {
-  return;
+const getOneWorkoutService = (workoutId) => {
+  try {
+    const oneWorkout = Workout.getOneWorkoutDB(workoutId);
+    return oneWorkout;
+  } catch (error) {
+    throw error;
+  }
 };
 
-const updateOneWorkoutService = () => {
-  return;
+const updateOneWorkoutService = (workoutId, updates) => {
+  try {
+    const updatedWorkout = Workout.updateOneWorkoutDB(workoutId, updates);
+    return updatedWorkout;
+  } catch (error) {
+    throw error;
+  }
 };
 
-const deleteOneWorkoutService = () => {
-  return;
+const deleteOneWorkoutService = (workoutId) => {
+  try {
+    Workout.deleteOneWorkoutDB(workoutId);
+  } catch (error) {
+    throw error;
+  }
 };
 
 module.exports = {
